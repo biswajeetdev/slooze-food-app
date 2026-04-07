@@ -2,7 +2,19 @@ import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import { AppModule } from './app.module';
 
+function validateEnv() {
+  const secret = process.env.JWT_SECRET;
+  if (!secret || secret.trim().length < 32) {
+    console.error(
+      '❌ FATAL: JWT_SECRET is missing or too short (min 32 chars). ' +
+      'Set it in your .env file. Refusing to start.',
+    );
+    process.exit(1);
+  }
+}
+
 async function bootstrap() {
+  validateEnv();
   const app = await NestFactory.create(AppModule);
 
   app.enableCors({

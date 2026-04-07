@@ -28,7 +28,7 @@ export class AuthService {
         name: input.name,
         email: input.email,
         password: hashed,
-        role: input.role,
+        role: 'MEMBER', // Role is never taken from client input — always MEMBER on self-registration
         country: input.country,
       },
     });
@@ -57,7 +57,7 @@ export class AuthService {
     return this.jwtService.sign(
       { sub: id, email, role, country },
       {
-        secret: process.env.JWT_SECRET || 'fallback-secret',
+        secret: process.env.JWT_SECRET,
         expiresIn: process.env.JWT_EXPIRES_IN || '7d',
       },
     );

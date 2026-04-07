@@ -13,7 +13,6 @@ export default function RegisterPage() {
     name: "",
     email: "",
     password: "",
-    role: "MEMBER",
     country: "INDIA",
   });
   const [error, setError] = useState("");
@@ -50,6 +49,7 @@ export default function RegisterPage() {
               <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
               <input
                 required
+                maxLength={100}
                 value={form.name}
                 onChange={(e) => setForm({ ...form, name: e.target.value })}
                 className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
@@ -62,6 +62,7 @@ export default function RegisterPage() {
               <input
                 type="email"
                 required
+                maxLength={254}
                 value={form.email}
                 onChange={(e) => setForm({ ...form, email: e.target.value })}
                 className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
@@ -75,6 +76,7 @@ export default function RegisterPage() {
                 type="password"
                 required
                 minLength={8}
+                maxLength={128}
                 value={form.password}
                 onChange={(e) => setForm({ ...form, password: e.target.value })}
                 className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
@@ -82,31 +84,21 @@ export default function RegisterPage() {
               />
             </div>
 
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Role</label>
-                <select
-                  value={form.role}
-                  onChange={(e) => setForm({ ...form, role: e.target.value })}
-                  className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
-                >
-                  <option value="MEMBER">Member</option>
-                  <option value="MANAGER">Manager</option>
-                  <option value="ADMIN">Admin</option>
-                </select>
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Country</label>
-                <select
-                  value={form.country}
-                  onChange={(e) => setForm({ ...form, country: e.target.value })}
-                  className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
-                >
-                  <option value="INDIA">🇮🇳 India</option>
-                  <option value="AMERICA">🇺🇸 America</option>
-                </select>
-              </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Country</label>
+              <select
+                value={form.country}
+                onChange={(e) => setForm({ ...form, country: e.target.value })}
+                className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
+              >
+                <option value="INDIA">🇮🇳 India</option>
+                <option value="AMERICA">🇺🇸 America</option>
+              </select>
             </div>
+
+            <p className="text-xs text-gray-400 bg-gray-50 rounded-lg px-3 py-2">
+              New accounts are created with <strong>Member</strong> role. Contact an Admin to be promoted.
+            </p>
 
             {error && (
               <p className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg px-3 py-2">

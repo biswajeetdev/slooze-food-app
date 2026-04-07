@@ -15,7 +15,9 @@ import { PaymentMethodsModule } from './payment-methods/payment-methods.module';
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       sortSchema: true,
-      playground: true,
+      // Disable playground and introspection in production to prevent schema leakage
+      playground: process.env.NODE_ENV !== 'production',
+      introspection: process.env.NODE_ENV !== 'production',
       context: ({ req }) => ({ req }),
     }),
     PrismaModule,

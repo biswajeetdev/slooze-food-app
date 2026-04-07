@@ -28,7 +28,13 @@ export class PaymentMethodsService {
     }
 
     return this.prisma.paymentMethod.create({
-      data: { ...input, userId },
+      data: {
+        type: input.type,
+        label: input.label,
+        last4: input.last4 ?? null,
+        isDefault: input.isDefault,
+        userId,
+      },
     });
   }
 

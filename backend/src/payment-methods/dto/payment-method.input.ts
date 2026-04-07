@@ -1,5 +1,5 @@
 import { InputType, Field, ID } from '@nestjs/graphql';
-import { IsNotEmpty, IsOptional, IsBoolean, IsIn } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsBoolean, IsIn, Matches, MaxLength, MinLength } from 'class-validator';
 
 @InputType()
 export class CreatePaymentMethodInput {
@@ -10,10 +10,12 @@ export class CreatePaymentMethodInput {
 
   @Field()
   @IsNotEmpty()
+  @MaxLength(100)
   label: string;
 
   @Field({ nullable: true })
   @IsOptional()
+  @Matches(/^\d{4}$/, { message: 'last4 must be exactly 4 digits' })
   last4?: string;
 
   @Field({ defaultValue: false })
@@ -29,6 +31,7 @@ export class UpdatePaymentMethodInput {
 
   @Field({ nullable: true })
   @IsOptional()
+  @MaxLength(100)
   label?: string;
 
   @Field({ nullable: true })

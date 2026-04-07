@@ -1,5 +1,5 @@
 import { InputType, Field, ID, Int } from '@nestjs/graphql';
-import { IsNotEmpty, IsArray, IsOptional, Min, ArrayMinSize } from 'class-validator';
+import { IsNotEmpty, IsArray, IsOptional, Min, Max, ArrayMinSize, ArrayMaxSize } from 'class-validator';
 import { Type } from 'class-transformer';
 import { ValidateNested } from 'class-validator';
 
@@ -11,6 +11,7 @@ export class OrderItemInput {
 
   @Field(() => Int)
   @Min(1)
+  @Max(50) // Prevent absurdly large quantities
   quantity: number;
 }
 
@@ -23,6 +24,7 @@ export class CreateOrderInput {
   @Field(() => [OrderItemInput])
   @IsArray()
   @ArrayMinSize(1)
+  @ArrayMaxSize(20) // Prevent orders with hundreds of line items
   @ValidateNested({ each: true })
   @Type(() => OrderItemInput)
   items: OrderItemInput[];

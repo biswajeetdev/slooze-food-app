@@ -119,7 +119,6 @@ input RegisterInput {
   email: String!
   name: String!
   password: String!
-  role: Role! = MEMBER
 }
 
 type RestaurantModel {
